@@ -75,3 +75,42 @@ They both really go hand in hand to help domain and trees communicate with each 
     Policies are the major part of the AD environment. They dictate how the server behaves and which rules it will and will not follow. Policies usually apply to the whole domain. Basically a rulebook. Domain admin can modify this rulebook.
 
 DOMAIN SERVICES + AUTHENTICATION
+  Domain services -  The services which the domain controller provides to the rest of the doamin/tree. Some default services -
+    LDAP - Lightweight directory authentication protocol, provides authentication and stuff
+    Certificate Services - Allows creation/validation/revoke of public key certificates
+    DNS,LLMNR, NBT-NS - Used for identifying IP hostnames
+  Domain authentication - Two main types of authentication -
+    NTLM - Default Windows authentication services protocol, uses an encrypted challenge/response protocol
+    Kerberos - Default authentication service for Active Directory. Uses ticket-granting tickets and service tickets to authenticate users and give users access to others resources/
+
+AD IN THE CLOUD
+  Usually hosted as Azure AD, default settings are pretty pog and secure as compared to the on-premise one.
+  Azure acts as middle man between your physical AD and the user's sign in. It allows more secure transactions.
+  Security Overview - As compared to On premise this is what Azure AD works
+    On premise AD
+      LDAP
+      NTLM
+      Kerberos
+      OU Tree
+      Domains and Forest
+      Trusts
+    Azure AD
+      Rest APIs
+      OAuth/SAML
+      OpenID
+      Flat Structure
+      Tenants
+      Guests
+
+Hands on Lab -
+  Imported the PowerView Module in to Powershell -> . .\PowerView.ps1
+    PowerView Cheatsheet - https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993
+
+    Task 1 -> What is the name of the Windows 10 operating system?
+                Get-NetComputer -fulldata | select operatingsystem
+    Task 2 -> What is the second "Admin" name?
+                Get-NetUser | select givenname
+    Task 3 -> Which group has a capital "V" in the group name?
+                Get-ADGroup -Filter * | select name OR Get-NetGroup -Groupname *
+    Task 4 -> When was the password last set for the SQLService user?
+                Get-NetUser | select name,pwdlastset OR Get-NetUser -SPN | ?{$_.memberof -match 'Domain Admins'}
