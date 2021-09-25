@@ -1,1 +1,1 @@
-# TryHackMe_Notes
+# THM_Notes
